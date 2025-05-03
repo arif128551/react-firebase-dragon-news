@@ -18,6 +18,22 @@
   --font-poppins: "Poppins", "sans-serif";
 }
 
+
+@theme {
+  --color-c9f9f9f: #9F9F9F;
+  --color-c706f6f: #706F6F;
+}
+
 body {
   font-family: var(--font-poppins);
+}
+
+.left-sidebar .active {
+  color: var(--color-primary);
+  background-color: var(--color-base-300);
+  border-radius: 5px;
+}
+
+.active {
+  color: var(--color-primary);
 }

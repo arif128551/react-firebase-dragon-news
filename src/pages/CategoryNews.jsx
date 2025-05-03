@@ -1,0 +1,43 @@
+import React, { useEffect, useState } from "react";
+import LatestNews from "../components/LatestNews";
+import Navbar from "../components/Navbar";
+import LeftSidebar from "../components/LeftSidebar";
+import NewsCard from "../components/NewsCard";
+import RightSidebar from "../components/RightSidebar";
+import { useLoaderData, useParams } from "react-router";
+
+const CategoryNews = () => {
+	const { id } = useParams();
+	const catId = parseInt(id);
+	const data = useLoaderData();
+	const [specificCatNews, setSpecificCatNews] = useState([]);
+	useEffect(() => {
+		const filteredNews = data.filter((news) => parseInt(news.category_id) === catId);
+		setSpecificCatNews(filteredNews);
+	}, [data, catId]);
+	console.log(specificCatNews);
+	return (
+		<div>
+			<LatestNews></LatestNews>
+			<Navbar></Navbar>
+			<div className="grid grid-cols-12 container max-w-[1140px] mx-auto gap-6">
+				<div className="lg:col-span-3 col-span-12 order-2 lg:order-1 xl:ml-0 ml-4 lg:mr-0 mr-4">
+					<LeftSidebar></LeftSidebar>
+				</div>
+				<div className="lg:col-span-6 col-span-12 order-1 lg:order-2 lg:mx-0 mx-4">
+					<h2 className="text-xl font-semibold text-primary mb-5">Dragon News Home</h2>
+					<div className="flex flex-col gap-8">
+						<NewsCard></NewsCard>
+						<NewsCard></NewsCard>
+						<NewsCard></NewsCard>
+					</div>
+				</div>
+				<div className="lg:col-span-3 col-span-12 order-3 lg:order-3 xl:mr-0 mr-4 lg:ml-0 ml-4">
+					<RightSidebar></RightSidebar>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default CategoryNews;
