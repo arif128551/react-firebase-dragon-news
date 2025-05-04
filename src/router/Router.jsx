@@ -9,6 +9,7 @@ import Career from "../pages/Career";
 import PageLoader from "../components/ui/PageLoader";
 import CategoryNews from "../pages/CategoryNews";
 import PrivateRoute from "../context/PrivateRoute";
+import ForgetPassword from "../pages/ForgetPassword";
 
 export const router = createBrowserRouter([
 	{
@@ -53,5 +54,9 @@ export const router = createBrowserRouter([
 	{
 		path: "/register",
 		Component: Register,
+	},
+	{
+		path: "/forget-password",
+		Component: ForgetPassword,
 	},
 ]);

@@ -55,7 +55,9 @@ const Login = () => {
 							autoComplete="autocomplete"
 						/>
 						<div className="mt-2">
-							<a className="link link-hover">Forgot password?</a>
+							<Link to="/forget-password" className="link link-hover">
+								Forgot password?
+							</Link>
 						</div>
 						{error && (
 							<>
