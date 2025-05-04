@@ -2,23 +2,28 @@ import React from "react";
 import { CiBookmark } from "react-icons/ci";
 import { CiShare2 } from "react-icons/ci";
 import { Link } from "react-router";
-import { FaStar } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
-const NewsCard = () => {
+import dayjs from "dayjs";
+import StarRating from "./ui/StarRating";
+const NewsCard = ({ news }) => {
+	const {
+		id,
+		title,
+		rating: { number },
+		author: { name, published_date, img },
+		image_url,
+		details,
+	} = news;
 	return (
 		<div className="border border-base-200 rounded-md mb-10">
 			<div className="flex justify-between items-center bg-base-200 rounded-t-md px-5 py-3">
 				<div className="flex items-center gap-4">
 					<div className="w-10 h-10">
-						<img
-							className="w-10 h-10 rounded-full object-cover object-center"
-							src="https://randomuser.me/api/portraits/women/29.jpg"
-							alt=""
-						/>
+						<img className="w-10 h-10 rounded-full object-cover object-center" src={img} alt={name} />
 					</div>
 					<div>
-						<h5 className="font-semibold text-primary">Awlad Hossain</h5>
-						<p className="text-sm text-c706f6f">2022-08-21</p>
+						<h5 className="font-semibold text-primary">{name}</h5>
+						<p className="text-sm text-c706f6f">{dayjs(published_date).format("YYYY-MM-DD")}</p>
 					</div>
 				</div>
 				<div>
@@ -32,31 +37,24 @@ const NewsCard = () => {
 			</div>
 			<div className="px-5 py-3.5">
 				<div className="mb-5 pb-5 border-b border-base-300">
-					<h3 className="text-xl font-bold text-primary mb-5">
-						Biden Pledges Nearly $3 Billion To Ukraine In Largest U.S. Military Aid Package Yet
-					</h3>
-					<img
-						className="rounded-md mb-8"
-						src="https://apparelresources.com/wp-content/uploads/2024/11/Bangladeshs-RMG-exports-decline-by-2.8-per-cent-in-FY-25-Q1-.jpg"
-						alt=""
-					/>
-					<p className="text-c706f6f">
-						Wednesday, August 24, 2022 | Tag Cloud Tags: Biden, EU, Euro, Europe, Joe Biden, Military, News, Russia,
-						Security, UK, Ukraine, United States, Worthy News (Worthy News) – U.S. President Joe Biden has announced
-						nearly $3 billion in new U.S. military a...{" "}
-					</p>
-					<Link className="text-[#FF8C47]">Read More</Link>
+					<h3 className="text-xl font-bold text-primary mb-5">{title}</h3>
+					<img className="rounded-md mb-8" src={image_url} alt={title} />
+					<p className="text-c706f6f">{details.split(" ").slice(0, 30).join(" ") + "..."}</p>
+					<Link className="text-[#FF8C47]" to={`/news-details/${id}`}>
+						Read More
+					</Link>
 				</div>
 				<div className="flex justify-between">
 					<div className="flex items-center gap-2.5">
 						<div className="flex gap-1">
+							{/* <FaStar color="#FF8C47" size={24} />
 							<FaStar color="#FF8C47" size={24} />
 							<FaStar color="#FF8C47" size={24} />
 							<FaStar color="#FF8C47" size={24} />
-							<FaStar color="#FF8C47" size={24} />
-							<FaStar color="#FF8C47" size={24} />
+							<FaStar color="#FF8C47" size={24} /> */}
+							<StarRating rating={number} />
 						</div>
-						<p className="text-c706f6f font-medium">4.9</p>
+						<p className="text-c706f6f font-medium">{number}</p>
 					</div>
 					<div className="flex items-center gap-2.5">
 						<div>

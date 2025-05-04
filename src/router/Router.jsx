@@ -8,6 +8,7 @@ import About from "../pages/About";
 import Career from "../pages/Career";
 import PageLoader from "../components/ui/PageLoader";
 import CategoryNews from "../pages/CategoryNews";
+import PrivateRoute from "../context/PrivateRoute";
 
 export const router = createBrowserRouter([
 	{
@@ -26,8 +27,14 @@ export const router = createBrowserRouter([
 				loader: () => fetch("/news.json"),
 			},
 			{
-				path: "/news-details",
-				Component: NewsDetails,
+				path: "/news-details/:id",
+				element: (
+					<PrivateRoute>
+						<NewsDetails></NewsDetails>
+					</PrivateRoute>
+				),
+				hydrateFallbackElement: <PageLoader />,
+				loader: () => fetch("/news.json"),
 			},
 			{
 				path: "/about",

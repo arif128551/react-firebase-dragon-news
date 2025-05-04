@@ -12,10 +12,18 @@ const CategoryNews = () => {
 	const data = useLoaderData();
 	const [specificCatNews, setSpecificCatNews] = useState([]);
 	useEffect(() => {
-		const filteredNews = data.filter((news) => parseInt(news.category_id) === catId);
-		setSpecificCatNews(filteredNews);
+		if (catId === 0) {
+			setSpecificCatNews(data);
+			return;
+		} else if (catId === 1) {
+			const filteredNewsForTrending = data.filter((news) => news.others.is_today_pick === true);
+			setSpecificCatNews(filteredNewsForTrending);
+			return;
+		} else {
+			const filteredNews = data.filter((news) => parseInt(news.category_id) === catId);
+			setSpecificCatNews(filteredNews);
+		}
 	}, [data, catId]);
-	console.log(specificCatNews);
 	return (
 		<div>
 			<LatestNews></LatestNews>
@@ -27,9 +35,9 @@ const CategoryNews = () => {
 				<div className="lg:col-span-6 col-span-12 order-1 lg:order-2 lg:mx-0 mx-4">
 					<h2 className="text-xl font-semibold text-primary mb-5">Dragon News Home</h2>
 					<div className="flex flex-col gap-8">
-						<NewsCard></NewsCard>
-						<NewsCard></NewsCard>
-						<NewsCard></NewsCard>
+						{specificCatNews.map((news) => (
+							<NewsCard key={news.id} news={news}></NewsCard>
+						))}
 					</div>
 				</div>
 				<div className="lg:col-span-3 col-span-12 order-3 lg:order-3 xl:mr-0 mr-4 lg:ml-0 ml-4">
