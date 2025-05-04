@@ -24,9 +24,9 @@ const Home = () => {
 				<div className="lg:col-span-6 col-span-12 order-1 lg:order-2 lg:mx-0 mx-4">
 					<h2 className="text-xl font-semibold text-primary mb-5">Dragon News Home</h2>
 					<div className="flex flex-col gap-8">
-						{/* <NewsCard></NewsCard>
-						<NewsCard></NewsCard>
-						<NewsCard></NewsCard> */}
+						{newsItems.map((news) => (
+							<NewsCard key={news.id} news={news}></NewsCard>
+						))}
 					</div>
 				</div>
 				<div className="lg:col-span-3 col-span-12 order-3 lg:order-3 xl:mr-0 mr-4 lg:ml-0 ml-4">
