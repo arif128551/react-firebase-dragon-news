@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const Register = () => {
 	const [accepted, setAccepted] = useState(true);
 	const [nameError, setNameError] = useState("");
-	const { createUser, setUser, updateUser } = use(AuthContext);
+	const { createUser, setUser, updateUser, verifyUser, signOutUser } = use(AuthContext);
 	const navigate = useNavigate();
 	const handleRegister = (e) => {
 		e.preventDefault();
@@ -29,7 +29,14 @@ const Register = () => {
 					updateUser({ displayName, photoURL })
 						.then(() => {
 							setUser({ ...user, displayName, photoURL });
-							navigate("/");
+							verifyUser()
+								.then(() => {
+									signOutUser().then(() => {
+										navigate("/login");
+										toast.success("Account created! Please check your email to verify and then login.");
+									});
+								})
+								.catch((error) => toast.error("Verification email failed.", error));
 						})
 						.catch((error) => {
 							toast.error(error);

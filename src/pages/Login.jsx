@@ -16,8 +16,12 @@ const Login = () => {
 		signInUserWithEmailPass(email, password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				navigate(location.state || "/");
-				toast.success("Welcome back! You have successfully logged in.");
+				if (user.emailVerified) {
+					toast.success("Welcome back! You have successfully logged in.");
+					navigate(location.state || "/");
+				} else {
+					toast.error("Please verify your email address before logging in.");
+				}
 			})
 			.catch((error) => {
 				const errorCode = error.code;
