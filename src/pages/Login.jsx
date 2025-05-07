@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
 	const [error, setError] = useState("");
-	const { signInUserWithEmailPass, setLoading } = use(AuthContext);
+	const { signInUserWithEmailPass, setLoading, signOutUser } = use(AuthContext);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const handleLogin = (e) => {
@@ -21,13 +21,14 @@ const Login = () => {
 					navigate(location.state || "/");
 				} else {
 					toast.error("Please verify your email address before logging in.");
+					signOutUser();
 				}
 			})
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
 				setError(errorCode);
-				toast.error(`${errorCode} ${errorMessage}`);
+				toast.error(`${errorMessage}`);
 			})
 			.finally(() => setLoading(false));
 	};
