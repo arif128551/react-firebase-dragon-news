@@ -9,8 +9,7 @@ const Root = () => {
 	const navigation = useNavigation();
 	const isLoading = navigation.state === "loading";
 	if (loading || isLoading) {
-		<PageLoader />;
-		return;
+		return <PageLoader />;
 	}
 	return (
 		<>

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const Register = () => {
 	const [accepted, setAccepted] = useState(true);
 	const [nameError, setNameError] = useState("");
-	const { createUser, setUser, updateUser, verifyUser, signOutUser } = use(AuthContext);
+	const { createUser, setUser, updateUser, verifyUser, signOutUser, setLoading } = use(AuthContext);
 	const navigate = useNavigate();
 	const handleRegister = (e) => {
 		e.preventDefault();
@@ -48,10 +48,10 @@ const Register = () => {
 					);
 				})
 				.catch((error) => {
-					const errorCode = error.code;
 					const errorMessage = error.message;
 					toast.error(errorMessage);
-				});
+				})
+				.finally(() => setLoading(false));
 		} else {
 			toast.error("Accept terms and conditions to create account");
 		}

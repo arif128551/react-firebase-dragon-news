@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
 	const [error, setError] = useState("");
-	const { signInUserWithEmailPass } = use(AuthContext);
+	const { signInUserWithEmailPass, setLoading } = use(AuthContext);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const handleLogin = (e) => {
@@ -28,7 +28,8 @@ const Login = () => {
 				const errorMessage = error.message;
 				setError(errorCode);
 				toast.error(`${errorCode} ${errorMessage}`);
-			});
+			})
+			.finally(() => setLoading(false));
 	};
 	return (
 		<div className="bg-[#F3F3F3] min-h-screen">
